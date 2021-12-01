@@ -1,6 +1,8 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
 import { InputField } from '../resuableComponent/InputField';
+//react router dom
+import {Link} from 'react-router-dom';
 //@mui/material components
 import { Button, Typography , } from '@mui/material';
 import {makeStyles} from '@mui/styles';
@@ -80,7 +82,7 @@ const validationSchema= Yup.object().shape({
               
               <Button type="submit" className={classes.loginFormBtn}> Submit</Button>
               <div className={classes.loginFormAccount}>
-                  <p>No account? <span>Sign Up</span></p>
+                  <p>Already have an account? <Link to="/" style={{ textDecoration: 'none' }}><span>Sign In</span></Link></p>
                 </div>
           </form>
         </div>

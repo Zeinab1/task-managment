@@ -1,6 +1,8 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
 import { InputField } from '../resuableComponent/InputField';
+//react router dom
+import {Link} from 'react-router-dom';
 //@mui/material components
 import { Button } from '@mui/material';
 import {makeStyles} from '@mui/styles';
@@ -72,7 +74,7 @@ const classes = useStyles();
                   </div>
                 <Button type="submit" className={classes.loginFormBtn}> Submit</Button>
                 <div className={classes.loginFormAccount}>
-                    <p>No account? <span>Sign Up</span></p>
+                    <p>No account? <Link to="/sign-up" style={{ textDecoration: 'none' }}><span>Sign Up</span></Link></p>
                   </div>
             </form>
           </div>
