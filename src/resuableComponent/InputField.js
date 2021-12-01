@@ -51,7 +51,7 @@ const useStyles = makeStyles(()=>({
               {...register(name)}
               {...inputProps}
               className={classes.textfieldClass}
-              autoComplete='off' 
+                autoComplete ='off'
             />
             {error && <p style={{color:"#FFFF00", fontWeight:"400"}}>{error.message}</p>} 
         </div>

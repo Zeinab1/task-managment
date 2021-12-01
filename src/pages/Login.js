@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from "react-hook-form";
 import { InputField } from '../resuableComponent/InputField';
 //@mui/material components
-import { Button, Typography , } from '@mui/material';
+import { Button } from '@mui/material';
 import {makeStyles} from '@mui/styles';
 
 //yup for validation
@@ -11,7 +11,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 //style of page
 import styles from '../assets/styles/main.js';
-//icon
 
 
 
@@ -49,7 +48,6 @@ const classes = useStyles();
               </span>
               <span className={classes.loginFormTitle} >Log in</span>
                 <div className={classes.wrapInput}>
-                  {/* <i class="zmdi zmdi-account"></i> */}
                   <InputField
                       id="email"
                       name="email"
