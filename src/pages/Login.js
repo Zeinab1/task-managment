@@ -10,7 +10,7 @@ import * as Yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 
 //style of page
-import styles from '../assets/styles/login.js';
+import styles from '../assets/styles/main.js';
 //icon
 
 

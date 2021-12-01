@@ -9,6 +9,8 @@ const customInputStyle = {
     display:"flex",
     justifyContent:"center",
     alignItems:"center",
+    flexFlow: "column wrap",
+
 
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
@@ -67,7 +69,7 @@ const customInputStyle = {
     paddingBottom:"34px"
   },
   wrapInput:{
-    marginBottom:"20px",
+    marginBottom:"30px",
   },
   loginFormBtn:{
     "&.MuiButton-root":{
@@ -93,20 +95,20 @@ const customInputStyle = {
     color:"#fff",
     textAlign:"center",
     paddingTop:"5px",
-    paddingBottom:"35px",
+    paddingBottom:"20px",
     cursor:"pointer",
   },
   loginFormAccount:{
     textAlign:"center",
     color:"#fff",
-    paddingTop:"35px",
+    paddingTop:"20px",
     cursor:"pointer",
     "& span":{
       color:"#555555",
       fontWeight:"bold",
     }
-  }
-   
+  },
+
   };
   
   export default customInputStyle;
