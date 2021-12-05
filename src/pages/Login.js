@@ -3,16 +3,21 @@ import { useForm } from "react-hook-form";
 import { InputField } from '../resuableComponent/InputField';
 //react router dom
 import {Link} from 'react-router-dom';
-//@mui/material components
+import { useNavigate } from 'react-router';//@mui/material components
 import { Button } from '@mui/material';
 import {makeStyles} from '@mui/styles';
-
+//call property and method by redux
+import { useDispatch , useSelector} from 'react-redux';
+import {logIn , loginSuccess} from '../redux/actions/taskActions'
 //yup for validation
 import * as Yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 
 //style of page
 import styles from '../assets/styles/main.js';
+
+import DialogSignup from './DialogSignup';
+
 
 
 
@@ -37,10 +42,30 @@ const classes = useStyles();
         resolver: yupResolver(validationSchema)
      
       });
+    //Dialog for registraion user
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+
+    const handleClose = () =>{
+      setOpen(false)
+
+    }
+
+    //functionality
+      const dispatch = useDispatch();
+
+      const navigate = useNavigate();
 
       const onSubmit = (values) => {
-        console.log("Form Submitted", { values });
+        const email = values.email;
+        const password = values.password;
+        logIn( dispatch , email , password , navigate , setOpen); 
       };
+
     return (
         <div className={classes.container}>
           <div className={classes.wrapLogin}>
@@ -78,6 +103,10 @@ const classes = useStyles();
                   </div>
             </form>
           </div>
+          <DialogSignup
+          open={open}
+          handleClose={handleClose}          
+          />
         </div>
     )
 }

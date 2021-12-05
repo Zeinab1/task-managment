@@ -22,7 +22,7 @@ const DialogSignup = (props) => {
               aria-describedby="alert-dialog-slide-description"
               TransitionProps={{
                 style: {
-                    transitionDelay: 5000,
+                    transitionDelay: 2000,
                 }
             }}
             >

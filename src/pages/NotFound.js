@@ -16,7 +16,7 @@ const classes = useStyles();
         <div className={classes.container}>
                 <Typography variant="h1">404</Typography>
                 <Typography variant="h4">Sorry, but nothing exists here.</Typography>
-                <Link to="/" >Go to Log In Page</Link>
+                <Link to="/sign-in" >Go to Log In Page</Link>
 
         </div>
     )

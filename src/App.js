@@ -7,15 +7,18 @@ import {
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
+import ProtectedRoute from './routes/ProtectedRoute'
 import AllTask from './components/AllTask'
 
 function App() {
   return (
     <Router>
       <Routes >
-        <Route exact path="/"  element={<Login />}/>
+        <Route  path="/sign-in"  element={<Login />}/>
         <Route  path="/sign-up"  element={<Signup />}/>
-        <Route  path="/tasks"  element={<Signup />}/>
+        <Route exact path='/tasks' element={<ProtectedRoute/>}>
+            <Route exact path='/tasks' element={<AllTask/>}/>
+        </Route>
         <Route  path='*'  element={<NotFound />}/>
       </Routes >
     </Router>

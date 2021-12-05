@@ -10,6 +10,16 @@ import {
     REGISTER_ERROR
 } from '../types/types.js';
 
+
+export const loginRequest = (dispatch) =>{
+    dispatch( {type: LOGIN_REQUEST  })
+}
+export const loginSuccess = (dispatch) =>{
+    dispatch( {type: LOGIN_SUCCESS  })
+}
+export const loginError = (dispatch , errorMsg) =>{
+    dispatch( {type: LOGIN_ERROR , payload : errorMsg  })
+}
 export const registerRequest = (dispatch) =>{
     dispatch( {type: REGISTER_REQUEST   })
 }
@@ -20,8 +30,40 @@ export const registerError = (dispatch,errorMsg) =>{
     dispatch( {type:   REGISTER_ERROR , payload: errorMsg  })
 }
 
-export const registration = (dispatch , name , email , password , age) =>{
 
+export const logIn = (dispatch , email , password , navigate , setOpen) =>{
+
+    
+    let data = JSON.stringify({
+        "email": email,
+        "password": password,
+    })
+    
+    axios({
+        method: 'post',
+        url: 'https://api-nodejs-todolist.herokuapp.com/user/login',
+        headers: { 
+        'Content-Type': 'application/json'
+        },
+        data : data
+    })
+      .then(response=>{
+        loginSuccess(dispatch)
+        localStorage.setItem('tokenLogin', response.data.token);
+        navigate('/tasks')
+
+      })
+      .catch(error=>{
+        console.log(error)
+        const errorMsg = "Email not exist"
+        loginError(dispatch , errorMsg)
+        setOpen(true)
+         
+      })
+}
+
+
+export const registration = (dispatch , name , email , password , age) =>{
 
     let data = JSON.stringify({
         "name": name,
@@ -41,6 +83,7 @@ export const registration = (dispatch , name , email , password , age) =>{
       .then(response=>{
           const successMsg = 'Registration successful'
           registerSuccess(dispatch,successMsg)
+          localStorage.setItem('token', response.data.token)
       })
       .catch(error=>{
           const errorMsg = "Email already exist"

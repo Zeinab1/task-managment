@@ -124,16 +124,15 @@ const dispatch = useDispatch();
               
               <Button type="submit" className={classes.loginFormBtn}> Submit</Button>
               <div className={classes.loginFormAccount}>
-                  <p>Already have an account? <Link to="/" style={{ textDecoration: 'none' }}><span>Sign In</span></Link></p>
+                  <p>Already have an account? <Link to="/sign-in" style={{ textDecoration: 'none' }}><span>Sign In</span></Link></p>
                 </div>
           </form>
           </div>
+          <DialogSignup
+          open={open}
+          handleClose={handleClose}          
+          />
           </div>
-
-          // <DialogSignup
-          // open={open}
-          // handleClose={handleClose}          
-          // />
       
     )
 }
