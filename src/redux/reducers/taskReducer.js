@@ -4,8 +4,7 @@ import {
 } from '../types/types.js'
 const intialState = {
     tasks : [],
-    successMsg:"",
-    errorMsg:""
+    message:"",
 }
 
 const taskReducer = (state = intialState , action) =>{
@@ -15,12 +14,12 @@ const taskReducer = (state = intialState , action) =>{
         case    REGISTER_SUCCESS:
         return {
             ...state,
-            successMsg: action.payload
+            message: action.payload,
         }
         case   REGISTER_ERROR:
         return {
             ...state,
-            errorMsg: action.payload
+            message: action.payload,
         }
        
         default : return state

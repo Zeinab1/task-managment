@@ -4,11 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
-import {store} from './redux/store/index'
+import {store , persistor} from './redux/store/index';
+import { PersistGate } from 'redux-persist/integration/react';
+import DialogSignup from './pages/DialogSignup'
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+     <PersistGate loading={<DialogSignup/>} persistor={persistor} >
+      <App />
+    </PersistGate>
     </Provider>,
   document.getElementById('root')
 );

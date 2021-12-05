@@ -1,19 +1,22 @@
-import React , {useEffect} from 'react';
+import React  from 'react';
 import { useForm } from "react-hook-form";
+//resuable input 
 import { InputField } from '../resuableComponent/InputField';
 //react router dom
 import {Link} from 'react-router-dom';
 //@mui/material components
-import { Button, Typography , } from '@mui/material';
+import { Button } from '@mui/material';
 import {makeStyles} from '@mui/styles';
+
 //yup for validation
 import * as Yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 //call property and method by redux
-import {useSelector , useDispatch} from 'react-redux';
+import { useDispatch} from 'react-redux';
 import {registration} from '../redux/actions/taskActions'
 //style of page
 import styles from '../assets/styles/main.js';
+import DialogSignup from './DialogSignup';
 
 const useStyles = makeStyles(styles);
 
@@ -43,14 +46,22 @@ const validationSchema= Yup.object().shape({
     });
 
 
+//Dialog for registraion user
+
+const [open, setOpen] = React.useState(false);
+
+const handleClickOpen = () => {
+  setOpen(true);
+};
+
+const handleClose = () =>{
+  setOpen(false)
+
+}
+
 //functionality
 
 const dispatch = useDispatch();
-
-const errorMsg = useSelector(state=>{
-  return state.errorMsg
-});
-
 
     const onSubmit = (values) => {
       const name = values.name;
@@ -58,10 +69,10 @@ const errorMsg = useSelector(state=>{
       const password = values.password;
       const age =  parseInt(values.age);
       registration(dispatch , name , email , password , age)
+      handleClickOpen();
+
     };
 
-    // const onSubmit = data => console.log(typeof data.age);
-    
     return (
         <div className={classes.container}>
         <div className={classes.wrapLogin}>
@@ -116,8 +127,14 @@ const errorMsg = useSelector(state=>{
                   <p>Already have an account? <Link to="/" style={{ textDecoration: 'none' }}><span>Sign In</span></Link></p>
                 </div>
           </form>
-        </div>
-      </div>
+          </div>
+          </div>
+
+          // <DialogSignup
+          // open={open}
+          // handleClose={handleClose}          
+          // />
+      
     )
 }
 

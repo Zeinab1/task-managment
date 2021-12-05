@@ -6,7 +6,8 @@ import {
 } from "react-router-dom";
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import NotFound from './pages/NotFound'
+import NotFound from './pages/NotFound';
+import AllTask from './components/AllTask'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes >
         <Route exact path="/"  element={<Login />}/>
         <Route  path="/sign-up"  element={<Signup />}/>
+        <Route  path="/tasks"  element={<Signup />}/>
         <Route  path='*'  element={<NotFound />}/>
       </Routes >
     </Router>

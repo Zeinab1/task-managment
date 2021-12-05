@@ -20,8 +20,9 @@ export const registerError = (dispatch,errorMsg) =>{
     dispatch( {type:   REGISTER_ERROR , payload: errorMsg  })
 }
 
-export const registration = (dispatch , name , email , password , age ) =>{
-    
+export const registration = (dispatch , name , email , password , age) =>{
+
+
     let data = JSON.stringify({
         "name": name,
         "email": email,
@@ -31,11 +32,11 @@ export const registration = (dispatch , name , email , password , age ) =>{
     
     axios({
         method: 'post',
-          url: 'https://api-nodejs-todolist.herokuapp.com/user/register',
-          headers: { 
-            'Content-Type': 'application/json'
-          },
-          data : data
+        url: 'https://api-nodejs-todolist.herokuapp.com/user/register',
+        headers: { 
+        'Content-Type': 'application/json'
+        },
+        data : data
     })
       .then(response=>{
           const successMsg = 'Registration successful'
