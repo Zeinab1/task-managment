@@ -1,4 +1,4 @@
-import React, {useEffect } from 'react';
+import React, {useEffect , useState} from 'react';
 //material ui
 import { 
    
@@ -13,7 +13,7 @@ import CircleChecked from '@material-ui/icons/CheckCircleOutline';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 //call property and method by redux
 import { useDispatch , useSelector} from 'react-redux';
-import {fetchTodos , addTodo} from '../redux/actions/taskActions';
+import {fetchTodos , deleteTodo} from '../redux/actions/taskActions';
 
 
 const typographyStyle = {
@@ -23,6 +23,9 @@ const typographyStyle = {
 
 const TodoList = () => {
 
+    //functionality
+    const [id , setId] = useState('');
+    console.log(id)
      //fetch todos
      const dispatch = useDispatch();
      const todos = useSelector(state =>{
@@ -33,6 +36,7 @@ const TodoList = () => {
  
      useEffect(() => {
          fetchTodos(dispatch);
+         console.log(todos)
      }, [])
     return (
           <div >
@@ -54,6 +58,7 @@ const TodoList = () => {
                                     padding:"11px 14px",
                                     margin:"20px"
                                 }}
+                                key={index}
                             >
                                 <Grid xs={6} item container alignItems="center" >
                                     <Grid item>
@@ -72,7 +77,11 @@ const TodoList = () => {
                                         
                                         </Grid>
                                         <Grid item >
-                                            <Button sx={{color:"red"}}>Delete</Button>
+                                            <Button sx={{color:"red"}} onClick={()=> {
+                                                setId(todo._id);
+                                                }
+                                                 }
+                                                 >Delete</Button>
                                         </Grid>
 
                                 </Grid>

@@ -20,6 +20,10 @@ import {
     ADD_TODO,
     ADD_TODO_SUCCESS,
     ADD_TODO_ERROR,
+
+    DELETE_TODO,
+    DELETE_TODO_SUCCESS,
+    DELETE_TODO_ERROR
 } from '../types/types.js';
 
 
@@ -155,6 +159,7 @@ export const fetchTodos = (dispatch) => {
 export const addTodo = (dispatch , description) =>{
 
     const token = localStorage.getItem('token');
+
     var data = JSON.stringify({
         "description": description
       });
@@ -173,4 +178,26 @@ export const addTodo = (dispatch , description) =>{
       .catch(error=>{
         console.log(error)
       })
+}
+
+export const deleteTodo = (dispatch , id) => {
+
+    const token = localStorage.getItem('token');
+    console.log(id)
+
+    axios({
+        method: 'delete',
+        url: `https://api-nodejs-todolist.herokuapp.com/task/${id}`,
+        headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+    })
+      .then(response=>{
+          fetchTodos(dispatch)
+      })
+      .catch(error=>{
+        console.log(error)
+      })
+
 }
