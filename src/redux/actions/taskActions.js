@@ -16,6 +16,10 @@ import {
     FETCH_TODOS,
     FETCH_TODOS_SUCCESS,
     FETCH_TODOS_ERROR, 
+
+    ADD_TODO,
+    ADD_TODO_SUCCESS,
+    ADD_TODO_ERROR,
 } from '../types/types.js';
 
 
@@ -164,7 +168,7 @@ export const addTodo = (dispatch) =>{
         data : data
     })
       .then(response=>{
-        console.log(response.data)
+          console.log(response.data.data)
       })
       .catch(error=>{
         console.log(error)

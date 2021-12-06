@@ -20,8 +20,8 @@ const AllTask = () => {
     })
 
     useEffect(() => {
-        fetchTodos(dispatch);
-        addTodo(dispatch)
+        // fetchTodos(dispatch);
+        // addTodo(dispatch)
         console.log(todos)
     }, [])
 
@@ -29,7 +29,7 @@ const AllTask = () => {
         <div className={classes.todosBody}>
             <Navbar/>
             <div className={classes.todosContainer}>
-                {todos ? (
+                {todos === [] ? (
                     <>
                     <p>you have not todos</p>
                     </>
@@ -37,6 +37,9 @@ const AllTask = () => {
                 ):(
                     <>
                     <p>show todos</p>
+                    {/* <div className={classes.todos}>
+
+                    </div> */}
                     </>
                 )
             }
