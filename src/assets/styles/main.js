@@ -110,6 +110,15 @@ const customInputStyle = {
       TextDecoration:"none",
     }
   },
+  // style of tasks page
+  todosBody:{
+    backgroundColor:"#9152f8",
+    width:"100%",
+    height:"100vh"
+  },
+  todosContainer:{
+  
+  }
 
   };
   

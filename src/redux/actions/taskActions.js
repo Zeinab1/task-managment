@@ -12,6 +12,10 @@ import {
     LOGOUT_REQUEST,
     LOGOUT_SUCCESS,
     LOGOUT_ERROR,
+
+    FETCH_TODOS,
+    FETCH_TODOS_SUCCESS,
+    FETCH_TODOS_ERROR, 
 } from '../types/types.js';
 
 
@@ -36,6 +40,10 @@ export const registerError = (dispatch,errorMsg) =>{
 export const logoutSuccess = (dispatch) =>{
     dispatch( {type:  LOGOUT_SUCCESS  })
 }
+export const fetchTodosSuccess = (dispatch , todos) =>{
+    dispatch( {type:   FETCH_TODOS_SUCCESS , payload: todos  })
+}
+
 
 export const logIn = (dispatch , email , password , navigate , setOpen) =>{
 
@@ -55,7 +63,7 @@ export const logIn = (dispatch , email , password , navigate , setOpen) =>{
     })
       .then(response=>{
         loginSuccess(dispatch)
-        localStorage.setItem('tokenLogin', response.data.token);
+        localStorage.setItem('token', response.data.token);
         navigate('/')
 
       })
@@ -66,7 +74,6 @@ export const logIn = (dispatch , email , password , navigate , setOpen) =>{
          
       })
 }
-
 
 export const registration = (dispatch , name , email , password , age) =>{
 
@@ -98,20 +105,66 @@ export const registration = (dispatch , name , email , password , age) =>{
 
 export const logOut = (dispatch , navigate) =>{
 
-    const tokenLogin = localStorage.getItem('tokenLogin')
+    const token = localStorage.getItem('token')
 
     axios({
         method: 'post',
         url: 'https://api-nodejs-todolist.herokuapp.com/user/logout',
         headers: { 
-            'Authorization': `Bearer ${tokenLogin}`
+            'Authorization': `Bearer ${token}`
         },
     })
       .then(response=>{
        logoutSuccess(dispatch)
-       localStorage.removeItem("tokenLogin")
+       localStorage.removeItem("token")
        navigate('/sign-in')
 
+      })
+      .catch(error=>{
+        console.log(error)
+      })
+}
+
+export const fetchTodos = (dispatch) => {
+
+    const token = localStorage.getItem('token')
+
+    axios({
+        method: 'get',
+        url: 'https://api-nodejs-todolist.herokuapp.com/task',
+        headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+    })
+      .then(response=>{
+        const todos = response.data.data;
+        fetchTodosSuccess(dispatch ,todos )
+
+      })
+      .catch(error=>{
+        console.log(error)
+      })
+
+}
+
+export const addTodo = (dispatch) =>{
+
+    const token = localStorage.getItem('token');
+    var data = JSON.stringify({
+        "description": "reading book"
+      });
+    axios({
+        method: 'post',
+        url: 'https://api-nodejs-todolist.herokuapp.com/task',
+        headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        data : data
+    })
+      .then(response=>{
+        console.log(response.data)
       })
       .catch(error=>{
         console.log(error)

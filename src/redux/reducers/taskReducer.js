@@ -6,9 +6,12 @@ import {
     REGISTER_ERROR,
 
     LOGOUT_SUCCESS,
+
+    FETCH_TODOS_SUCCESS,
+
 } from '../types/types.js'
 const intialState = {
-    tasks : [],
+    todos : [],
     message:"",
     authenticated: false
 }
@@ -29,12 +32,12 @@ const taskReducer = (state = intialState , action) =>{
                 authenticated: false
             }
         case    REGISTER_SUCCESS:
-        return {
+            return {
             ...state,
             message: action.payload,
         }
         case   REGISTER_ERROR:
-        return {
+            return {
             ...state,
             message: action.payload,
         }
@@ -42,6 +45,11 @@ const taskReducer = (state = intialState , action) =>{
             return {
                 ...state,
                 authenticated: false
+        }
+        case    FETCH_TODOS_SUCCESS:
+            return {
+                ...state,
+                todos: action.payload
         }
        
         default : return state
