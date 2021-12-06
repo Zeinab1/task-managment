@@ -3,9 +3,12 @@ import React , {useState} from 'react';
 import { 
     Grid ,
     TextField,
-    Button
+    Button,
+    Snackbar
 
 } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import {makeStyles} from '@mui/styles';
 import styles from '../assets/styles/main';
 //call property and method by redux
@@ -36,6 +39,34 @@ const AddTodo = () => {
 
     const classes = useStyles();
 
+    // snackbar after add todo
+    const [open, setOpen] = useState(false);
+    const handleClick = () => {
+        setOpen(true);
+      };
+      const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+      
+        setOpen(false);
+      };
+    const action = (
+        <React.Fragment>
+          {/* <Button color="secondary" size="small" onClick={handleClose}>
+            UNDO
+          </Button> */}
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </React.Fragment>
+      );
+
     //functionality
 
     const [description , setDescription] = useState('');
@@ -46,7 +77,7 @@ const AddTodo = () => {
         setDescription(e.target.value);
     }
 
-    const handleClick = () =>{
+    const resetValueAfterAddTodo = () =>{
         setDescription('')
     }
     return (
@@ -81,12 +112,22 @@ const AddTodo = () => {
                             onClick={() => {
 
                                 addTodo(dispatch,description);
+                                resetValueAfterAddTodo();
                                 handleClick();
                             }}
                         >
                             Add
                         </Button>
                     </Grid>
+                    <div>
+                    <Snackbar
+                        open={open}
+                        autoHideDuration={6000}
+                        onClose={handleClose}
+                        message="New Todo Added"
+                        action={action}
+                    />
+                    </div>
                 </Grid>
     )
 }
