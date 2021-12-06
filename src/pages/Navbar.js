@@ -76,7 +76,7 @@ const Navbar = () => {
 
     return (
         <Box spacing={2} sx={{ flexGrow: 1 }}>
-        <AppBar position="static" style={{background:"#555555"}}>
+        <AppBar sx={{background:"#555555" , position:"fixed"}}>
             <Toolbar>
             <Typography
             variant="h6"

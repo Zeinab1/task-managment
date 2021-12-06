@@ -152,11 +152,11 @@ export const fetchTodos = (dispatch) => {
 
 }
 
-export const addTodo = (dispatch) =>{
+export const addTodo = (dispatch , description) =>{
 
     const token = localStorage.getItem('token');
     var data = JSON.stringify({
-        "description": "reading book"
+        "description": description
       });
     axios({
         method: 'post',
@@ -168,7 +168,7 @@ export const addTodo = (dispatch) =>{
         data : data
     })
       .then(response=>{
-          console.log(response.data.data)
+          fetchTodos(dispatch)
       })
       .catch(error=>{
         console.log(error)

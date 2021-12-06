@@ -113,12 +113,25 @@ const customInputStyle = {
   // style of tasks page
   todosBody:{
     backgroundColor:"#9152f8",
-    width:"100%",
-    height:"100vh"
+    paddingTop:"100px",
+    paddingBottom:"100px",
+
+    // height:"100vh"
   },
-  todosContainer:{
-  
-  }
+ 
+ todos:{
+   backgroundColor:"#fff",
+   width:"90%",
+   height:"60px",
+   borderRadius:"10px",
+   margin:"10px auto 0 auto"
+ },
+ addTitle:{
+   color:"#fff",
+ },
+ noBorder:{
+   border:"none"
+ }
 
   };
   
