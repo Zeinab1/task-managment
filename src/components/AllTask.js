@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import Navbar from '../pages/Navbar'
 
 const AllTask = () => {
     return (
         <div>
-            all tasks
+            <Navbar/>
         </div>
     )
 }

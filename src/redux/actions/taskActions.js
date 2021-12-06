@@ -7,7 +7,11 @@ import {
 
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
-    REGISTER_ERROR
+    REGISTER_ERROR,
+
+    LOGOUT_REQUEST,
+    LOGOUT_SUCCESS,
+    LOGOUT_ERROR,
 } from '../types/types.js';
 
 
@@ -29,7 +33,9 @@ export const registerSuccess = (dispatch,successMsg ) =>{
 export const registerError = (dispatch,errorMsg) =>{
     dispatch( {type:   REGISTER_ERROR , payload: errorMsg  })
 }
-
+export const logoutSuccess = (dispatch) =>{
+    dispatch( {type:  LOGOUT_SUCCESS  })
+}
 
 export const logIn = (dispatch , email , password , navigate , setOpen) =>{
 
@@ -50,11 +56,10 @@ export const logIn = (dispatch , email , password , navigate , setOpen) =>{
       .then(response=>{
         loginSuccess(dispatch)
         localStorage.setItem('tokenLogin', response.data.token);
-        navigate('/tasks')
+        navigate('/')
 
       })
       .catch(error=>{
-        console.log(error)
         const errorMsg = "Email not exist"
         loginError(dispatch , errorMsg)
         setOpen(true)
@@ -88,5 +93,27 @@ export const registration = (dispatch , name , email , password , age) =>{
       .catch(error=>{
           const errorMsg = "Email already exist"
           registerError(dispatch,errorMsg)
+      })
+}
+
+export const logOut = (dispatch , navigate) =>{
+
+    const tokenLogin = localStorage.getItem('tokenLogin')
+
+    axios({
+        method: 'post',
+        url: 'https://api-nodejs-todolist.herokuapp.com/user/logout',
+        headers: { 
+            'Authorization': `Bearer ${tokenLogin}`
+        },
+    })
+      .then(response=>{
+       logoutSuccess(dispatch)
+       localStorage.removeItem("tokenLogin")
+       navigate('/sign-in')
+
+      })
+      .catch(error=>{
+        console.log(error)
       })
 }

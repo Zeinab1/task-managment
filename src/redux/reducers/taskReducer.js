@@ -1,9 +1,11 @@
 import {
-    LOGIN_REQUEST ,
     LOGIN_SUCCESS,
     LOGIN_ERROR,
+
     REGISTER_SUCCESS,
-    REGISTER_ERROR
+    REGISTER_ERROR,
+
+    LOGOUT_SUCCESS,
 } from '../types/types.js'
 const intialState = {
     tasks : [],
@@ -35,6 +37,11 @@ const taskReducer = (state = intialState , action) =>{
         return {
             ...state,
             message: action.payload,
+        }
+        case    LOGOUT_SUCCESS:
+            return {
+                ...state,
+                authenticated: false
         }
        
         default : return state

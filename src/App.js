@@ -16,8 +16,8 @@ function App() {
       <Routes >
         <Route  path="/sign-in"  element={<Login />}/>
         <Route  path="/sign-up"  element={<Signup />}/>
-        <Route exact path='/tasks' element={<ProtectedRoute/>}>
-            <Route exact path='/tasks' element={<AllTask/>}/>
+        <Route exact path='/' element={<ProtectedRoute/>}>
+            <Route exact path='/' element={<AllTask/>}/>
         </Route>
         <Route  path='*'  element={<NotFound />}/>
       </Routes >
