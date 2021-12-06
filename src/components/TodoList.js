@@ -6,7 +6,12 @@ import {
     Box,
     Grid,
     Checkbox,
-    Button
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle
 
 } from '@mui/material';
 import CircleChecked from '@material-ui/icons/CheckCircleOutline';
@@ -32,12 +37,17 @@ const TodoList = () => {
          return     state.todos
      });
  
-     
- 
-     useEffect(() => {
-         fetchTodos(dispatch);
-         console.log(todos)
-     }, [])
+     //Dialog for delete todo
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+    setOpen(true);
+    };
+
+    const handleClose = () =>{
+    setOpen(false)
+    }
     return (
           <div >
                 {todos.length === 0 ? (
@@ -79,6 +89,7 @@ const TodoList = () => {
                                         <Grid item >
                                             <Button sx={{color:"red"}} onClick={()=> {
                                                 setId(todo._id);
+                                                handleClickOpen();
                                                 }
                                                  }
                                                  >Delete</Button>
@@ -93,8 +104,40 @@ const TodoList = () => {
                     </>
                 )
             }
-
+             <div>
+    
+                <Dialog
+                open={open}
+                keepMounted
+                onClose={handleClose}
+                aria-describedby="alert-dialog-slide-description"
+                >
+                <DialogTitle>Delete Task</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                    Are you sure you want to delete task ?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                
+                    <Button
+                    color="secondary"
+                        onClick={() => {
+                            deleteTodo(dispatch,id)
+                            handleClose()
+                          
+                        }}
+                        >
+                        yes
+                        </Button>
+                    
+                    <Button onClick={handleClose}>No</Button>
+                </DialogActions>
+                </Dialog>
+                </div>
+                        
            </div> 
+          
     )
 }
 
