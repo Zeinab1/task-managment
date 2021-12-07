@@ -34,10 +34,16 @@ const AllTask = () => {
             <Navbar/>
             <Box
              sx={{
-                width:"73%",
+                width:"80%",
                 margin:"0 auto"
             }}>
                 <TodoList/>
+            </Box>
+            <Box
+             sx={{
+                width:{xs:"73px" ,sm:"80%"},
+                margin:{xs:"20px" ,sm:"0 auto"}
+            }}>
                 <AddTodo/>
             </Box>
         </Box>

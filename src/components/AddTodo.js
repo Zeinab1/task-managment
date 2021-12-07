@@ -25,10 +25,8 @@ const textfieldStyle = {
 const buttonStyle = {
     backgroundColor:"#555",
     color:"#fff",
-    width:"100px",
     padding:"10px 0",
     borderRadius:"10px",
-    marginLeft:"30px",
     "&:hover":{
         backgroundColor:"#555"
     }
@@ -86,10 +84,13 @@ const AddTodo = () => {
 
              }} 
              >
-                    <Grid  item xs={7} sm={8} >
+                    <Grid  item xs={11} sm={8} >
                         <TextField
                             sx={{
                                 ...textfieldStyle,
+                                '@media screen and (max-width:300px )': {
+                                   
+                                   },
                             }}
                             InputProps={{
                                 classes:{notchedOutline:classes.noBorder}
@@ -99,12 +100,16 @@ const AddTodo = () => {
                             value={description}
                         />
                     </Grid>
-                    <Grid  item  xs={12} sm={2}>
+                    <Grid  item  xs={11} sm={2} container justifyContent="center">
                         <Button
                             color="secondary"
                             variant="outlined"
                             sx={{
                                 ...buttonStyle,
+                                marginTop:{xs:"20px" , sm:"0"},
+                                marginLeft:{xs:"0",sm:"30px"},
+                                width:{xs:"100%", sm:"100px"}
+                            
                             }}
                             onClick={() => {
 

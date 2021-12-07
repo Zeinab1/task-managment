@@ -10,13 +10,16 @@ import {
     DialogActions,
     DialogContent,
     DialogContentText,
-    DialogTitle
+    DialogTitle,
+    Snackbar
 
 } from '@mui/material';
 //icons
 import CircleChecked from '@material-ui/icons/CheckCircleOutline';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 //call property and method by redux
 import { useDispatch , useSelector} from 'react-redux';
 import { deleteTodo , updateTodoState} from '../redux/actions/taskActions';
@@ -42,6 +45,10 @@ const TodoList = () => {
             return     state.completedTodos
         });
       console.log(completedTodos)
+      useEffect(() => {
+
+        updateTodoState(dispatch,idUpdate)
+    }, [idUpdate])
 
  
      //Dialog for delete todo
@@ -56,12 +63,30 @@ const TodoList = () => {
     setOpen(false)
     }
 
-    const test = completedTodos.slice(0, 1);
-    console.log(test)
-    useEffect(() => {
-
-            updateTodoState(dispatch,idUpdate)
-    }, [idUpdate])
+     // snackbar after delete todo
+     const [openSnackbar, setOpenSnackbar] = useState(false);
+     const handleClick = () => {
+        setOpenSnackbar(true);
+       };
+       const handleCloseSnackbar = (event, reason) => {
+         if (reason === 'clickaway') {
+           return;
+         }
+       
+         setOpenSnackbar(false);
+       };
+     const action = (
+         <React.Fragment>
+           <IconButton
+             size="small"
+             aria-label="close"
+             color="inherit"
+             onClick={handleCloseSnackbar}
+           >
+             <CloseIcon fontSize="small" />
+           </IconButton>
+         </React.Fragment>
+       );
    
     return (
           <div >
@@ -81,7 +106,7 @@ const TodoList = () => {
                                     backgroundColor:"#fff",
                                     borderRadius:"10px",
                                     padding:"11px 14px",
-                                    margin:"20px"
+                                    margin:"20px 0"
                                 }}
                                 key={index}
                             >
@@ -182,8 +207,9 @@ const TodoList = () => {
                     <Button
                     color="secondary"
                         onClick={() => {
-                            deleteTodo(dispatch,id)
-                            handleClose()
+                            deleteTodo(dispatch,id);
+                            handleClose();
+                            handleClick();
                           
                         }}
                         >
@@ -194,6 +220,15 @@ const TodoList = () => {
                 </DialogActions>
                 </Dialog>
                 </div>
+                <div>
+                    <Snackbar
+                        open={openSnackbar}
+                        autoHideDuration={6000}
+                        onClose={handleCloseSnackbar}
+                        message="Todo deleted"
+                        action={action}
+                    />
+                    </div>
                     
            </div> 
           
