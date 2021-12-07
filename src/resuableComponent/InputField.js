@@ -11,9 +11,12 @@ const useStyles = makeStyles(()=>({
   textfieldClass: {
     '& .MuiInput-input': {
      '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
-       '-webkit-appearance': 'none',
+       '-webkit-appearance': 'none !important',
+       "-moz-appearance":"textfield"
      },
+       
     },
+   
     "& .css-1x51dt5-MuiInputBase-input-MuiInput-input":{
       color:"#fff",
     },
@@ -30,7 +33,6 @@ const useStyles = makeStyles(()=>({
         borderBottom: "2px solid rgba(255,255,255,0.24)"
       },
       width:"100%",
-      padding:"0 5px 0 30px"
    }, 
 }))
 

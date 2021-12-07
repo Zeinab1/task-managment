@@ -19,6 +19,12 @@ const customInputStyle = {
     position:"relative",
     zIndex:"1",
 
+    '@media only screen and (max-width: 300px)': {
+        background:"none"
+    
+      
+  },
+
     "&::before":{
       content:"''",
       display:"block",
@@ -33,17 +39,30 @@ const customInputStyle = {
    
 },
   wrapLogin:{
-    width:"500px",
+    // width:"200px",
     borderRadius:"10px",
-    overflow: "hidden",
-    padding: "55px 55px 37px 55px",
     margin:"40px 0",
 
     background:"#9152f8",
     background: "-webkit-linear-gradient(top, #7579ff, #b224ef)",
     background: "-o-linear-gradient(top, #7579ff, #b224ef)",
     background: "-moz-linear-gradient(top, #7579ff, #b224ef)",
-    background: "linear-gradient(top, #7579ff, #b224ef)"
+    background: "linear-gradient(top, #7579ff, #b224ef)",
+     '@media only screen and (min-width: 300px)': {
+        width:"300px",
+        padding:"55px 10px 37px 10px"
+    },
+    '@media only screen and (min-width: 340px)': {
+      width:"320px",
+      padding:"55px 10px 37px 10px"
+
+  },
+  '@media only screen and (min-width: 640px)': {
+    width:"500px",
+    padding: "55px 55px 37px 55px",
+
+},
+  
   },
  
   loginFormlogo:{
@@ -112,11 +131,11 @@ const customInputStyle = {
   },
   // style of tasks page
   todosBody:{
-    backgroundColor:"#9152f8",
-    paddingTop:"100px",
-    paddingBottom:"100px",
-
-    height:"100vh"
+    // backgroundColor:"#9152f8",
+    // paddingTop:"100px",
+    // paddingBottom:"100px",
+    // position:"relative",
+    // height:"100vh"
   },
  
  todos:{

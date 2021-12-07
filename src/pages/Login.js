@@ -64,8 +64,9 @@ const classes = useStyles();
 
     return (
         <div className={classes.container}>
-          <div className={classes.wrapLogin}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+           <div className={classes.wrapLogin}>
+
+             <form onSubmit={handleSubmit(onSubmit)}>
               <span className={classes.loginFormlogo}>
               <i class="zmdi zmdi-landscape"></i>
               </span>
@@ -97,12 +98,13 @@ const classes = useStyles();
                 <div className={classes.loginFormAccount}>
                     <p>No account? <Link to="/sign-up" style={{ textDecoration: 'none' }}><span>Sign Up</span></Link></p>
                   </div>
-            </form>
+            </form> 
+            
           </div>
           <DialogSignup
           open={open}
           handleClose={handleClose}          
-          />
+          /> 
         </div>
     )
 }

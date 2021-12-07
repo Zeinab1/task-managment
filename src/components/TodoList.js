@@ -118,6 +118,7 @@ const TodoList = () => {
                                         onClick={()=>{
                                             setIdUpdate(todo._id)
                                         }}
+                                        
                                         />
                                     </Grid>
                                     <Grid item  >
@@ -150,7 +151,6 @@ const TodoList = () => {
                 ):(
                     <>
                     <Typography variant="h6" sx={{
-                        marginLeft:"20px"
                     }}>Completed Tasks</Typography>
                     {completedTodos.map(function(todo,index) {
                         return (
@@ -160,7 +160,7 @@ const TodoList = () => {
                                     backgroundColor:"#fff",
                                     borderRadius:"10px",
                                     padding:"11px 14px",
-                                    margin:"20px"
+                                    margin:"20px 0"
                                 }}
                                 key={index}
                             >

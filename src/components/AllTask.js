@@ -35,7 +35,10 @@ const AllTask = () => {
             <Box
              sx={{
                 width:"80%",
-                margin:"0 auto"
+                margin:"0 auto",
+                paddingTop:"100px",
+                paddingBottom:"300px"
+
             }}>
                 <TodoList/>
             </Box>
