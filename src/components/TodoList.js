@@ -1,7 +1,6 @@
-import React, {useEffect , useState} from 'react';
+import React, {useEffect , useState } from 'react';
 //material ui
 import { 
-   
     Typography,
     Box,
     Grid,
@@ -14,11 +13,13 @@ import {
     DialogTitle
 
 } from '@mui/material';
+//icons
 import CircleChecked from '@material-ui/icons/CheckCircleOutline';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 //call property and method by redux
 import { useDispatch , useSelector} from 'react-redux';
-import { deleteTodo} from '../redux/actions/taskActions';
+import { deleteTodo , updateTodoState} from '../redux/actions/taskActions';
 
 
 const typographyStyle = {
@@ -30,13 +31,18 @@ const TodoList = () => {
 
     //functionality
         const [id , setId] = useState('');
-        const [completed , setCompleted] = useState(false);
-        console.log(id)
+        const [idUpdate , setIdUpdate] = useState('');
+
         //fetch todos
         const dispatch = useDispatch();
         const todos = useSelector(state =>{
             return     state.todos
         });
+        const completedTodos = useSelector(state =>{
+            return     state.completedTodos
+        });
+      console.log(completedTodos)
+
  
      //Dialog for delete todo
 
@@ -49,6 +55,13 @@ const TodoList = () => {
     const handleClose = () =>{
     setOpen(false)
     }
+
+    const test = completedTodos.slice(0, 1);
+    console.log(test)
+    useEffect(() => {
+
+            updateTodoState(dispatch,idUpdate)
+    }, [idUpdate])
    
     return (
           <div >
@@ -76,9 +89,9 @@ const TodoList = () => {
                                     <Grid item>
                                     <Checkbox
                                         icon={<CircleUnchecked />}
-                                        checkedIcon={<CircleChecked />}
+                                        checkedIcon={<CircleChecked  />}
                                         onClick={()=>{
-                                            setCompleted(true)
+                                            setIdUpdate(todo._id)
                                         }}
                                         />
                                     </Grid>
@@ -87,11 +100,7 @@ const TodoList = () => {
                                     </Grid>
                                 </Grid>
                                 <Grid  xs={6} item container justifyContent="flex-end" alignItems="center" >
-                                        {/* <Grid item >
-                                            <Button 
-                                            >Update</Button>
                                         
-                                        </Grid> */}
                                         <Grid item >
                                             <Button sx={{color:"red"}} onClick={()=> {
                                                 setId(todo._id);
@@ -103,6 +112,50 @@ const TodoList = () => {
 
                                 </Grid>
                             </Grid>
+                        )
+                    })
+                    }
+                    
+                    </>
+                )
+            }
+            {completedTodos.length === 0 ? (
+                   null
+
+                ):(
+                    <>
+                    <Typography variant="h6" sx={{
+                        marginLeft:"20px"
+                    }}>Completed Tasks</Typography>
+                    {completedTodos.map(function(todo,index) {
+                        return (
+                            <>
+                            <Grid container  
+                                sx={{
+                                    backgroundColor:"#fff",
+                                    borderRadius:"10px",
+                                    padding:"11px 14px",
+                                    margin:"20px"
+                                }}
+                                key={index}
+                            >
+                                
+                                <Grid xs={6} item container alignItems="center" >
+                                    <CheckCircleIcon sx={{color:"#9152f8" , marginRight:"10px"}}/>
+                                        <del style={{color:"#808080"}} >{todo.description}</del>
+                                </Grid>
+                                {/* <Grid  xs={6} item container justifyContent="flex-end" alignItems="center" >
+                                        
+                                            <Button sx={{color:"red"}} onClick={()=> {
+                                                setId(todo._id);
+                                                handleClickOpen();
+                                                }
+                                                 }
+                                                 >Delete</Button>
+
+                                </Grid> */}
+                            </Grid>
+                            </>
                         )
                     })
                     }

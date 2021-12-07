@@ -13,10 +13,8 @@ import {
 
     FETCH_TODOS_SUCCESS,
 
-
-    UPDATE_TODO,
-    UPDATE_TODO_SUCCESS,
-    UPDATE_TODO_ERROR  
+    UPDATE_TODO_STATE,
+    UPDATE_TODO_STATE_SUCCESS,
 } from '../types/types.js';
 
 
@@ -43,6 +41,12 @@ export const logoutSuccess = (dispatch) =>{
 }
 export const fetchTodosSuccess = (dispatch , todos) =>{
     dispatch( {type:   FETCH_TODOS_SUCCESS , payload: todos  })
+}
+export const updateTodoStateRequest = (dispatch) =>{
+    dispatch({type:UPDATE_TODO_STATE })
+}
+export const updateTodoStateSuccess = (dispatch , completedTodo) =>{
+    dispatch({type: UPDATE_TODO_STATE_SUCCESS , payload: completedTodo})
 }
 
 
@@ -195,6 +199,33 @@ export const deleteTodo = (dispatch , id) => {
 
 }
 
-export const updateTodoState = (dispatch) => {
-    
+export const updateTodoState = (dispatch,id) => {
+
+    const token = localStorage.getItem('token');
+
+    console.log(id)
+    let data = JSON.stringify({
+        "completed": true
+      });
+
+      axios({
+        method: 'put',
+        url: `https://api-nodejs-todolist.herokuapp.com/task/${id}`,
+        headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        data : data
+    })
+      .then(response=>{
+          const completedTodo = response.data.data;
+          console.log(completedTodo);
+          updateTodoStateSuccess(dispatch, completedTodo);
+          deleteTodo(dispatch , id);
+      })
+      .catch(error=>{
+        console.log(error)
+      })
+
 }
+

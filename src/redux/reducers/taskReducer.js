@@ -9,11 +9,16 @@ import {
 
     FETCH_TODOS_SUCCESS,
 
+    UPDATE_TODO_STATE,
+    UPDATE_TODO_STATE_SUCCESS
+
 } from '../types/types.js'
 const intialState = {
     todos : [],
+    completedTodos:[],
     message:"",
-    authenticated: false
+    authenticated: false,
+    test:true
 }
 
 const taskReducer = (state = intialState , action) =>{
@@ -50,6 +55,12 @@ const taskReducer = (state = intialState , action) =>{
             return {
                 ...state,
                 todos: action.payload
+        }
+        case    UPDATE_TODO_STATE_SUCCESS:
+            return {
+                ...state,
+                test: false,
+                completedTodos:[...state.completedTodos,action.payload]
         }
        
         default : return state
