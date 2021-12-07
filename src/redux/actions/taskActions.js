@@ -9,21 +9,14 @@ import {
     REGISTER_SUCCESS,
     REGISTER_ERROR,
 
-    LOGOUT_REQUEST,
     LOGOUT_SUCCESS,
-    LOGOUT_ERROR,
 
-    FETCH_TODOS,
     FETCH_TODOS_SUCCESS,
-    FETCH_TODOS_ERROR, 
 
-    ADD_TODO,
-    ADD_TODO_SUCCESS,
-    ADD_TODO_ERROR,
 
-    DELETE_TODO,
-    DELETE_TODO_SUCCESS,
-    DELETE_TODO_ERROR
+    UPDATE_TODO,
+    UPDATE_TODO_SUCCESS,
+    UPDATE_TODO_ERROR  
 } from '../types/types.js';
 
 
@@ -200,4 +193,8 @@ export const deleteTodo = (dispatch , id) => {
         console.log(error)
       })
 
+}
+
+export const updateTodoState = (dispatch) => {
+    
 }

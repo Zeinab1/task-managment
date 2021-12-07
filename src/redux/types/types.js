@@ -27,5 +27,9 @@ export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_TODO_SUCCESS = 'DELETE_TODO_SUCCESS';
 export const DELETE_TODO_ERROR = 'DELETE_TODO_ERROR ';
 
+//update todo
+export const UPDATE_TODO = 'UPDATE_TODO';
+export const UPDATE_TODO_SUCCESS = 'UPDATE_TODO_SUCCESS';
+export const UPDATE_TODO_ERROR = 'UPDATE_TODO_ERROR ';
 
 

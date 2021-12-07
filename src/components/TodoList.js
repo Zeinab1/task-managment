@@ -19,8 +19,6 @@ import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 //call property and method by redux
 import { useDispatch , useSelector} from 'react-redux';
 import { deleteTodo} from '../redux/actions/taskActions';
-//drawer for update
-import DrawerToUpdateTodo from './DrawerToUpdateTodo';
 
 
 const typographyStyle = {
@@ -31,13 +29,14 @@ const typographyStyle = {
 const TodoList = () => {
 
     //functionality
-    const [id , setId] = useState('');
-    console.log(id)
-     //fetch todos
-     const dispatch = useDispatch();
-     const todos = useSelector(state =>{
-         return     state.todos
-     });
+        const [id , setId] = useState('');
+        const [completed , setCompleted] = useState(false);
+        console.log(id)
+        //fetch todos
+        const dispatch = useDispatch();
+        const todos = useSelector(state =>{
+            return     state.todos
+        });
  
      //Dialog for delete todo
 
@@ -50,11 +49,7 @@ const TodoList = () => {
     const handleClose = () =>{
     setOpen(false)
     }
-    //Drawer for updtate
-        const [openDrawerUpdate, setOpenDrawerUpdate] = useState(false);
-        const toggleDrawerUpdate = () => {
-            setOpenDrawerUpdate(!openDrawerUpdate);
-        };
+   
     return (
           <div >
                 {todos.length === 0 ? (
@@ -82,6 +77,9 @@ const TodoList = () => {
                                     <Checkbox
                                         icon={<CircleUnchecked />}
                                         checkedIcon={<CircleChecked />}
+                                        onClick={()=>{
+                                            setCompleted(true)
+                                        }}
                                         />
                                     </Grid>
                                     <Grid item  >
@@ -89,12 +87,11 @@ const TodoList = () => {
                                     </Grid>
                                 </Grid>
                                 <Grid  xs={6} item container justifyContent="flex-end" alignItems="center" >
-                                        <Grid item >
+                                        {/* <Grid item >
                                             <Button 
-                                            onClick={toggleDrawerUpdate}
                                             >Update</Button>
                                         
-                                        </Grid>
+                                        </Grid> */}
                                         <Grid item >
                                             <Button sx={{color:"red"}} onClick={()=> {
                                                 setId(todo._id);
@@ -143,12 +140,6 @@ const TodoList = () => {
                     <Button onClick={handleClose}>No</Button>
                 </DialogActions>
                 </Dialog>
-                </div>
-                <div>
-                    <DrawerToUpdateTodo 
-                    open={openDrawerUpdate}
-                    toggleDrawerUpdate={toggleDrawerUpdate}
-                    />
                 </div>
                     
            </div> 
