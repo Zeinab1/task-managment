@@ -18,7 +18,9 @@ import CircleChecked from '@material-ui/icons/CheckCircleOutline';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 //call property and method by redux
 import { useDispatch , useSelector} from 'react-redux';
-import {fetchTodos , deleteTodo} from '../redux/actions/taskActions';
+import { deleteTodo} from '../redux/actions/taskActions';
+//drawer for update
+import DrawerToUpdateTodo from './DrawerToUpdateTodo';
 
 
 const typographyStyle = {
@@ -48,6 +50,11 @@ const TodoList = () => {
     const handleClose = () =>{
     setOpen(false)
     }
+    //Drawer for updtate
+        const [openDrawerUpdate, setOpenDrawerUpdate] = useState(false);
+        const toggleDrawerUpdate = () => {
+            setOpenDrawerUpdate(!openDrawerUpdate);
+        };
     return (
           <div >
                 {todos.length === 0 ? (
@@ -83,7 +90,9 @@ const TodoList = () => {
                                 </Grid>
                                 <Grid  xs={6} item container justifyContent="flex-end" alignItems="center" >
                                         <Grid item >
-                                            <Button>Update</Button>
+                                            <Button 
+                                            onClick={toggleDrawerUpdate}
+                                            >Update</Button>
                                         
                                         </Grid>
                                         <Grid item >
@@ -135,7 +144,13 @@ const TodoList = () => {
                 </DialogActions>
                 </Dialog>
                 </div>
-                        
+                <div>
+                    <DrawerToUpdateTodo 
+                    open={openDrawerUpdate}
+                    toggleDrawerUpdate={toggleDrawerUpdate}
+                    />
+                </div>
+                    
            </div> 
           
     )
