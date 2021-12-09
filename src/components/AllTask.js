@@ -12,7 +12,7 @@ import {
 import styles from '../assets/styles/main';
 import {makeStyles} from '@mui/styles';
 //call property and method by redux
-import { useDispatch , useSelector} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchTodos} from '../redux/actions/taskActions';
 
 

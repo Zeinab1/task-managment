@@ -22,7 +22,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 //call property and method by redux
 import { useDispatch , useSelector} from 'react-redux';
-import { deleteTodo , updateTodoState} from '../redux/actions/taskActions';
+import { deleteTodo ,  updateTodoState} from '../redux/actions/taskActions';
 
 
 const typographyStyle = {
@@ -44,10 +44,10 @@ const TodoList = () => {
         const completedTodos = useSelector(state =>{
             return     state.completedTodos
         });
-      console.log(completedTodos)
+
       useEffect(() => {
 
-        updateTodoState(dispatch,idUpdate)
+        updateTodoState(dispatch,idUpdate);
     }, [idUpdate])
 
  
@@ -108,12 +108,13 @@ const TodoList = () => {
                                     padding:"11px 14px",
                                     margin:"20px 0"
                                 }}
-                                key={index}
+                                key={todo._id}
                             >
                                 <Grid xs={6} item container alignItems="center" >
                                     <Grid item>
                                     <Checkbox
                                         icon={<CircleUnchecked />}
+                                       
                                         checkedIcon={<CircleChecked  />}
                                         onClick={()=>{
                                             setIdUpdate(todo._id)
