@@ -28,7 +28,7 @@ const Login = () => {
 const classes = useStyles();
 
     const validationSchema= Yup.object().shape({
-      email: Yup.string().email().required(), 
+      email: Yup.string().email().required('email is required'), 
       password: Yup.string().required('password is required'),      
 
     });

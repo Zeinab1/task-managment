@@ -1,4 +1,4 @@
-
+import React  from 'react';
 import { useController } from "react-hook-form";
 //@mui/material components
 import { 
@@ -34,6 +34,10 @@ const useStyles = makeStyles(()=>({
       },
       width:"100%",
    }, 
+  //  smallInput:{
+  //   '-moz-appearance': 'textfield',
+  //   "&::-webkit-inner-spin-butto"{}
+  //  }
 }))
 
 
@@ -41,10 +45,12 @@ const useStyles = makeStyles(()=>({
   export const InputField = ({ error ,register, label , id ,name , ...inputProps}) =>{
 
     const classes = useStyles();
+   
     
     return (
         <div>
           <label>{label}</label>
+          
             <TextField 
             variant="standard"
               id={id}

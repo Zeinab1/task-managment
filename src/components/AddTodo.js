@@ -115,7 +115,9 @@ const AddTodo = () => {
 
                                 addTodo(dispatch,description);
                                 resetValueAfterAddTodo();
-                                handleClick();
+                                if(description !== ''){
+                                    handleClick();
+                                }
                             }}
                         >
                             Add

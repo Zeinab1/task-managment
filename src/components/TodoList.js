@@ -111,7 +111,7 @@ const TodoList = () => {
                                 key={todo._id}
                             >
                                 <Grid xs={6} item container alignItems="center" >
-                                    <Grid item>
+                                    {/* <Grid item>
                                     <Checkbox
                                         icon={<CircleUnchecked />}
                                        
@@ -121,12 +121,19 @@ const TodoList = () => {
                                         }}
                                         
                                         />
-                                    </Grid>
+                                    </Grid> */}
                                     <Grid item  >
                                         <Typography >{todo.description}</Typography>
                                     </Grid>
                                 </Grid>
                                 <Grid  xs={6} item container justifyContent="flex-end" alignItems="center" >
+                                        <Grid item >
+                                            <Button color="primary"
+                                             onClick={()=>{
+                                                setIdUpdate(todo._id)
+                                            }}
+                                                 >Update</Button>
+                                        </Grid>
                                         
                                         <Grid item >
                                             <Button sx={{color:"red"}} onClick={()=> {
@@ -170,16 +177,7 @@ const TodoList = () => {
                                     <CheckCircleIcon sx={{color:"#9152f8" , marginRight:"10px"}}/>
                                         <del style={{color:"#808080"}} >{todo.description}</del>
                                 </Grid>
-                                {/* <Grid  xs={6} item container justifyContent="flex-end" alignItems="center" >
-                                        
-                                            <Button sx={{color:"red"}} onClick={()=> {
-                                                setId(todo._id);
-                                                handleClickOpen();
-                                                }
-                                                 }
-                                                 >Delete</Button>
-
-                                </Grid> */}
+                               
                             </Grid>
                             </>
                         )

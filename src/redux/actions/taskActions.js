@@ -1,11 +1,9 @@
 import axios from 'axios';
 
 import {
-    LOGIN_REQUEST ,
     LOGIN_SUCCESS,
     LOGIN_ERROR,
 
-    REGISTER_REQUEST,
     REGISTER_SUCCESS,
     REGISTER_ERROR,
 
@@ -13,41 +11,16 @@ import {
 
     FETCH_TODOS_SUCCESS,
 
-    UPDATE_TODO_STATE,
     UPDATE_TODO_STATE_SUCCESS,
+
+    COMPLETED_TODO_SUCCESS
 } from '../types/types.js';
 
 
-export const loginRequest = (dispatch) =>{
-    dispatch( {type: LOGIN_REQUEST  })
-}
-export const loginSuccess = (dispatch) =>{
-    dispatch( {type: LOGIN_SUCCESS  })
-}
-export const loginError = (dispatch , errorMsg) =>{
-    dispatch( {type: LOGIN_ERROR , payload : errorMsg  })
-}
-export const registerRequest = (dispatch) =>{
-    dispatch( {type: REGISTER_REQUEST   })
-}
-export const registerSuccess = (dispatch,successMsg ) =>{
-    dispatch( {type:  REGISTER_SUCCESS , payload:  successMsg  })
-}
-export const registerError = (dispatch,errorMsg) =>{
-    dispatch( {type:   REGISTER_ERROR , payload: errorMsg  })
-}
-export const logoutSuccess = (dispatch) =>{
-    dispatch( {type:  LOGOUT_SUCCESS  })
-}
-export const fetchTodosSuccess = (dispatch , todos) =>{
-    dispatch( {type:   FETCH_TODOS_SUCCESS , payload: todos  })
-}
-export const updateTodoStateRequest = (dispatch) =>{
-    dispatch({type:UPDATE_TODO_STATE })
-}
-export const updateTodoStateSuccess = (dispatch , completedTodo) =>{
-    dispatch({type: UPDATE_TODO_STATE_SUCCESS , payload: completedTodo})
-}
+
+
+
+
 
 
 export const logIn = (dispatch , email , password , navigate , setOpen) =>{
@@ -67,20 +40,20 @@ export const logIn = (dispatch , email , password , navigate , setOpen) =>{
         data : data
     })
       .then(response=>{
-        loginSuccess(dispatch)
+        dispatch({type: LOGIN_SUCCESS  })
         localStorage.setItem('token', response.data.token);
         navigate('/')
 
       })
       .catch(error=>{
-        const errorMsg = "Email not exist"
-        loginError(dispatch , errorMsg)
+        const errorMsg = "Email or Password is wrong exist"
+        dispatch( {type: LOGIN_ERROR , payload : errorMsg  })
         setOpen(true)
          
       })
 }
 
-export const registration = (dispatch , name , email , password , age) =>{
+export const registration = (dispatch , name , email , password , age ,navigate) =>{
 
     let data = JSON.stringify({
         "name": name,
@@ -99,12 +72,16 @@ export const registration = (dispatch , name , email , password , age) =>{
     })
       .then(response=>{
           const successMsg = 'Registration successful'
-          registerSuccess(dispatch,successMsg)
+          dispatch( {type:  REGISTER_SUCCESS , payload:  successMsg  })
           localStorage.setItem('token', response.data.token)
+            navigate('/')
+
       })
       .catch(error=>{
+          console.log(error)
           const errorMsg = "Email already exist"
-          registerError(dispatch,errorMsg)
+        dispatch( {type:   REGISTER_ERROR , payload: errorMsg  })
+
       })
 }
 
@@ -120,7 +97,7 @@ export const logOut = (dispatch , navigate) =>{
         },
     })
       .then(response=>{
-       logoutSuccess(dispatch)
+        dispatch( {type:  LOGOUT_SUCCESS  })
        localStorage.removeItem("token")
        navigate('/sign-in')
 
@@ -144,7 +121,7 @@ export const fetchTodos = (dispatch) => {
     })
       .then(response=>{
         const todos = response.data.data;
-        fetchTodosSuccess(dispatch ,todos )
+        dispatch( {type:   FETCH_TODOS_SUCCESS , payload: todos  })
 
       })
       .catch(error=>{
@@ -220,12 +197,34 @@ export const updateTodoState = (dispatch,id) => {
       .then(response=>{
           const completedTodo = response.data.data;
           console.log(completedTodo);
-          updateTodoStateSuccess(dispatch, completedTodo);
-          deleteTodo(dispatch , id);
+          dispatch({type: UPDATE_TODO_STATE_SUCCESS , payload: completedTodo})
+         fetchCompletedTasks(dispatch)
       })
       .catch(error=>{
         console.log(error)
       })
 
+}
+
+export const fetchCompletedTasks = (dispatch)=>{
+
+    const token = localStorage.getItem('token')
+    axios({
+        method: 'get',
+        url: 'https://api-nodejs-todolist.herokuapp.com/task?completed=true',
+        headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(response=>{
+       console.log(response.data.data);
+       const completedTodos = response.data.data;
+       dispatch({type:  COMPLETED_TODO_SUCCESS , payload: completedTodos})
+
+      })
+      .catch(error=>{
+        console.log(error)
+      })
 }
 

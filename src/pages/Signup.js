@@ -1,11 +1,12 @@
-import React  from 'react';
+import React from 'react';
 import { useForm } from "react-hook-form";
 //resuable input 
 import { InputField } from '../resuableComponent/InputField';
 //react router dom
 import {Link} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 //@mui/material components
-import { Button } from '@mui/material';
+import { Button} from '@mui/material';
 import {makeStyles} from '@mui/styles';
 
 //yup for validation
@@ -27,10 +28,15 @@ const Signup = () => {
 const classes = useStyles();
 
 const validationSchema= Yup.object().shape({
-    name: Yup.string().required('name is required'),      
-    email: Yup.string().email().required(), 
-    password: Yup.string().required('password is required'),  
-    age: Yup.string().required('age is required'),      
+    name: Yup.string().max(16).required('name is required'),      
+    email: Yup.string().email().required('email is required'), 
+    password: Yup.string().min(8).max(8).required('password is required'),  
+    age: Yup
+    .number()
+    .typeError('age is required')
+    .required("age is required")
+    .min(18, "You must be at least 18 years")
+    .max(60, "You must be at most 60 years"),      
 
 
   });
@@ -44,7 +50,7 @@ const validationSchema= Yup.object().shape({
       resolver: yupResolver(validationSchema)
    
     });
-
+   
 
 //Dialog for registraion user
 
@@ -62,13 +68,18 @@ const handleClose = () =>{
 //functionality
 
 const dispatch = useDispatch();
+const navigate = useNavigate();
+
 
     const onSubmit = (values) => {
       const name = values.name;
       const email = values.email;
       const password = values.password;
       const age =  parseInt(values.age);
-      registration(dispatch , name , email , password , age)
+
+
+      registration(dispatch , name , email , password , age , navigate)
+
       handleClickOpen();
 
     };
@@ -119,8 +130,8 @@ const dispatch = useDispatch();
                     placeholder="Age"
                     register={register}
                     error={errors.age}
-                />
-                </div>
+                />               
+                 </div>
               
               <Button type="submit" className={classes.loginFormBtn}> Submit</Button>
               <div className={classes.loginFormAccount}>
